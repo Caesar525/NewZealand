@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace NEWZEALAND
 {
     /// <summary>
-    /// 预算池
+    /// 预算池 
     /// </summary>
     public class NZ_BUDGETPOOL: FullAuditedEntity<long>
     {
