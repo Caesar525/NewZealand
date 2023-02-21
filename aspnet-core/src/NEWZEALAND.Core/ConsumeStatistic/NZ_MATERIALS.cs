@@ -1,4 +1,5 @@
-﻿using Abp.Domain.Entities.Auditing;
+﻿using Abp.Domain.Entities;
+using Abp.Domain.Entities.Auditing;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace NEWZEALAND
     /// <summary>
     /// 消费物资
     /// </summary>
-    public class NZ_MATERIALS: FullAuditedEntity<long>
+    public class NZ_MATERIALS: FullAuditedEntity<long>, IMayHaveTenant
     {
         /// <summary>
         /// 物品ID
@@ -59,5 +60,9 @@ namespace NEWZEALAND
         [MaxLength(5)]
         [Comment("物资类型")]
         public string MATERIALSTYPE { get; set; }
+        /// <summary>
+        /// 租户
+        /// </summary>
+        public int? TenantId { get; set; }
     }
 }

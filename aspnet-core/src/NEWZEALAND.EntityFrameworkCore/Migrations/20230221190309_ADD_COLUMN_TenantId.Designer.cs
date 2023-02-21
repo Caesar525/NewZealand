@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using NEWZEALAND.EntityFrameworkCore;
 
@@ -10,9 +11,11 @@ using NEWZEALAND.EntityFrameworkCore;
 namespace NEWZEALAND.Migrations
 {
     [DbContext(typeof(NEWZEALANDDbContext))]
-    partial class NEWZEALANDDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230221190309_ADD_COLUMN_TenantId")]
+    partial class ADDCOLUMNTenantId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

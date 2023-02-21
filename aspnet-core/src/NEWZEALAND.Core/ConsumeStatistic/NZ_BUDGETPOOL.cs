@@ -1,4 +1,5 @@
-﻿using Abp.Domain.Entities.Auditing;
+﻿using Abp.Domain.Entities;
+using Abp.Domain.Entities.Auditing;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ using System.Threading.Tasks;
 namespace NEWZEALAND
 {
     /// <summary>
-    /// 预算池 
+    /// 预算池
     /// </summary>
-    public class NZ_BUDGETPOOL: FullAuditedEntity<long>
+    public class NZ_BUDGETPOOL: FullAuditedEntity<long>, IMayHaveTenant
     {
         /// <summary>
         /// 周期单位
@@ -26,5 +27,9 @@ namespace NEWZEALAND
         /// </summary>
         [Comment("预算池")]
         public decimal? POOLMONEY { get; set; }
+        /// <summary>
+        /// 租户
+        /// </summary>
+        public int? TenantId { get; set; }
     }
 }

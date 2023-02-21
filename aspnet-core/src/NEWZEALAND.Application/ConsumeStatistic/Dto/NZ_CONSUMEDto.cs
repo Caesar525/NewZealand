@@ -1,19 +1,17 @@
-﻿using Abp.Domain.Entities;
-using Abp.Domain.Entities.Auditing;
+﻿using Abp.Application.Services.Dto;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NEWZEALAND
+namespace NEWZEALAND.ConsumeStatistic.Dto
 {
     /// <summary>
-    /// 总支出
+    /// 总支出Dto
     /// </summary>
-    public class NZ_CONSUME: FullAuditedEntity<long>, IMayHaveTenant
+    public class NZ_CONSUMEDto : EntityDto<long>
     {
         /// <summary>
         /// 月份
@@ -39,7 +37,7 @@ namespace NEWZEALAND
         /// 可支配收入
         /// </summary>
         [Comment("可支配收入")]
-        public decimal? DISPOSABLEINCOME { get; set;}
+        public decimal? DISPOSABLEINCOME { get; set; }
         /// <summary>
         /// 总收入
         /// </summary>
@@ -54,6 +52,5 @@ namespace NEWZEALAND
         /// 租户
         /// </summary>
         public int? TenantId { get; set; }
-
     }
 }

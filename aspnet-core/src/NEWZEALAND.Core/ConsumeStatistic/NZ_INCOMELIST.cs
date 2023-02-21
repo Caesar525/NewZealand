@@ -1,4 +1,5 @@
-﻿using Abp.Domain.Entities.Auditing;
+﻿using Abp.Domain.Entities;
+using Abp.Domain.Entities.Auditing;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace NEWZEALAND
     /// <summary>
     /// 收入明细
     /// </summary>
-    public class NZ_INCOMELIST: FullAuditedEntity<long>
+    public class NZ_INCOMELIST: FullAuditedEntity<long>, IMayHaveTenant
     {
         /// <summary>
         /// 月份
@@ -40,5 +41,9 @@ namespace NEWZEALAND
         /// </summary>
         [Comment("发生时间")]
         public DateTime? HAPPENTIME { get; set; }
+        /// <summary>
+        /// 租户
+        /// </summary>
+        public int? TenantId { get; set; }
     }
 }
