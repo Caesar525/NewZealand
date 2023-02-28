@@ -8,10 +8,7 @@ using System.Threading.Tasks;
 
 namespace NEWZEALAND.ConsumeStatistic.Dto
 {
-    /// <summary>
-    /// 总支出Dto
-    /// </summary>
-    public class NZ_CONSUMEDto : FullAuditedEntityDto<long>
+    public class NZ_CreateConsumeDto:PagedAndSortedResultRequestDto
     {
         /// <summary>
         /// 月份
