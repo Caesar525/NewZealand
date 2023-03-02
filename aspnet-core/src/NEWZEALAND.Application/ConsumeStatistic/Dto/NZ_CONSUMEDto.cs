@@ -1,4 +1,6 @@
 ﻿using Abp.Application.Services.Dto;
+using Abp.AutoMapper;
+using Abp.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,7 @@ namespace NEWZEALAND.ConsumeStatistic.Dto
     /// <summary>
     /// 总支出Dto
     /// </summary>
+    [AutoMap(typeof(NZ_CONSUME))]
     public class NZ_CONSUMEDto : FullAuditedEntityDto<long>
     {
         /// <summary>
