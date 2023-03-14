@@ -1625,6 +1625,10 @@ namespace NEWZEALAND.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
 
+                    b.Property<DateTime?>("CONSUMEMONTH")
+                        .HasColumnType("datetime(6)")
+                        .HasComment("月份");
+
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime(6)");
 
@@ -1666,13 +1670,9 @@ namespace NEWZEALAND.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("MONTH")
-                        .HasColumnType("datetime(6)")
-                        .HasComment("月份");
-
                     b.Property<decimal?>("TOTALCONSUME")
                         .HasColumnType("decimal(65,30)")
-                        .HasComment("总收入");
+                        .HasComment("总消费");
 
                     b.Property<int?>("TenantId")
                         .HasColumnType("int");
@@ -1690,7 +1690,11 @@ namespace NEWZEALAND.Migrations
 
                     b.Property<decimal?>("CONSUME")
                         .HasColumnType("decimal(65,30)")
-                        .HasComment("总收入");
+                        .HasComment("总消费");
+
+                    b.Property<DateTime?>("CONSUMEMONTH")
+                        .HasColumnType("datetime(6)")
+                        .HasComment("月份");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime(6)");
@@ -1722,10 +1726,6 @@ namespace NEWZEALAND.Migrations
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
 
-                    b.Property<DateTime?>("MONTH")
-                        .HasColumnType("datetime(6)")
-                        .HasComment("月份");
-
                     b.Property<string>("REMARK")
                         .HasColumnType("longtext")
                         .HasComment("备注");
@@ -1748,6 +1748,10 @@ namespace NEWZEALAND.Migrations
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("CONSUMEMONTH")
+                        .HasColumnType("datetime(6)")
+                        .HasComment("月份");
 
                     b.Property<DateTime>("CreationTime")
                         .HasColumnType("datetime(6)");
@@ -1782,10 +1786,6 @@ namespace NEWZEALAND.Migrations
 
                     b.Property<long?>("LastModifierUserId")
                         .HasColumnType("bigint");
-
-                    b.Property<DateTime?>("MONTH")
-                        .HasColumnType("datetime(6)")
-                        .HasComment("月份");
 
                     b.Property<string>("REMARK")
                         .HasColumnType("longtext")

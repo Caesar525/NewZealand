@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\assets",
+    "\\src\\components",
+    "\\src\\router",
+    "\\src\\types",
+    "\\src\\views",
+    "\\src\\views\\setting",
+    "\\src\\views\\setting\\consumeList",
+    "\\src\\views\\setting\\role"
+  ],
+  "SelectedNode": "\\src\\views\\setting\\consume\\consume.vue",
+  "PreviewInSolutionExplorer": false
+}

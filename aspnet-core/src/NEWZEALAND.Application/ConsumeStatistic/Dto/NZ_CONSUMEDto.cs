@@ -20,7 +20,7 @@ namespace NEWZEALAND.ConsumeStatistic.Dto
         /// 月份
         /// </summary>
         [Comment("月份")]
-        public DateTime? MONTH { get; set; }
+        public DateTime? CONSUMEMONTH { get; set; }
         /// <summary>
         /// 极值
         /// </summary>

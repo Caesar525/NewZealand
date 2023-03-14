@@ -13,8 +13,11 @@
                 <FormItem :label="L('Name')" prop="name">
                     <Input v-model="tenant.name" :maxlength="32" :minlength="2"></Input>
                 </FormItem>
-                <FormItem :label="L('DatabaseConnectionString')" prop="databaseConnectionString">
+                <!-- <FormItem :label="L('DatabaseConnectionString')" prop="databaseConnectionString">
                     <Input v-model="tenant.databaseConnectionString" :maxlength="1024"></Input>
+                </FormItem> -->
+                <FormItem :label="L('DatabaseConnectionString')" prop="databaseConnectionString">
+                    <Input v-model="tenant.connectionString" :maxlength="1024"></Input>
                 </FormItem>
                 <FormItem :label="L('AdminEmailAddress')" prop="adminEmailAddress">
                     <Input v-model="tenant.adminEmailAddress" type="email" :maxlength="256"></Input>

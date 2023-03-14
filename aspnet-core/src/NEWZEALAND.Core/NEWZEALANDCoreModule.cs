@@ -1,4 +1,5 @@
-﻿using Abp.Localization;
+﻿using Abp.Auditing;
+using Abp.Localization;
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Abp.Runtime.Security;
@@ -11,6 +12,8 @@ using NEWZEALAND.Configuration;
 using NEWZEALAND.Localization;
 using NEWZEALAND.MultiTenancy;
 using NEWZEALAND.Timing;
+using Castle.MicroKernel.Registration;
+using NEWZEALAND.Audit;
 
 namespace NEWZEALAND
 {
@@ -35,11 +38,20 @@ namespace NEWZEALAND
             AppRoleConfig.Configure(Configuration.Modules.Zero().RoleManagement);
 
             Configuration.Settings.Providers.Add<AppSettingProvider>();
-            
-            Configuration.Localization.Languages.Add(new LanguageInfo("fa", "فارسی", "famfamfam-flags ir"));
-            
-            Configuration.Settings.SettingEncryptionConfiguration.DefaultPassPhrase = NEWZEALANDConsts.DefaultPassPhrase;
-            SimpleStringCipher.DefaultPassPhrase = NEWZEALANDConsts.DefaultPassPhrase;
+
+            //Configuration.Localization.Languages.Add(new LanguageInfo("fa", "فارسی", "famfamfam-flags ir"));
+
+            //Configuration.Settings.SettingEncryptionConfiguration.DefaultPassPhrase = NEWZEALANDConsts.DefaultPassPhrase;
+            //SimpleStringCipher.DefaultPassPhrase = NEWZEALANDConsts.DefaultPassPhrase;
+
+            Configuration.ReplaceService(typeof(IAuditingStore), () =>
+            {
+                Configuration.IocManager.IocContainer.Register(
+                    Component.For<IAuditingStore>()
+                        .ImplementedBy<DzhAuditingLogStore>()
+                        .LifestyleTransient()
+                );
+            });
         }
 
         public override void Initialize()

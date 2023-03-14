@@ -97,7 +97,27 @@
     <text name="DeleteTenantConfirm">确认删除该租户？</text>
     <text name="EditTenant">编辑租户</text>
     <text name="SearchWithThreeDot">搜索...</text>
-    
+
+    <text name="Consume">消费</text>
+    <text name="month" value="月份" />
+    <text name="extremum" value="极值" />
+    <text name="increment" value="增值" />
+    <text name="lowest" value="最低保障值" />
+    <text name="disposableincome" value="可支配收入" />
+    <text name="totalconsume" value="总消费" />
+    <text name="disposablebalance" value="可支配结余" />
+    <text name="CreateNewConsume">创建新消费</text>
+    <text name="ConsumeDetails">消费详情</text>
+    <text name="DeleteConsumeConfirm">确认删除该消费？</text>
+    <text name="DeleteConsumeListConfirm">确认删除该消费？</text>
+    <text name="ConsumeList">消费明细</text>
+
+    <text name="consume" value="总消费" />
+    <text name="usage" value="用途" />
+    <text name="remark" value="备注" />
+    <text name="location" value="地点" />
+    <text name="happentime" value="发生时间" />
+    <text name="consumemonth" value="月份" />
   </texts>
 </localizationDictionary>
 

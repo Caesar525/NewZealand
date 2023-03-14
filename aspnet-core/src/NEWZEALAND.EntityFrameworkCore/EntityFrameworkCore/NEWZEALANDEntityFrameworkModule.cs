@@ -2,13 +2,18 @@
 using Abp.Modules;
 using Abp.Reflection.Extensions;
 using Abp.Zero.EntityFrameworkCore;
+using DapperExtensions.Sql;
+using NEWZEALAND.Dapper;
 using NEWZEALAND.EntityFrameworkCore.Seed;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace NEWZEALAND.EntityFrameworkCore
 {
     [DependsOn(
         typeof(NEWZEALANDCoreModule), 
-        typeof(AbpZeroCoreEntityFrameworkCoreModule))]
+        typeof(AbpZeroCoreEntityFrameworkCoreModule)
+        , typeof(NEWZEALANDDapperModule))]
     public class NEWZEALANDEntityFrameworkModule : AbpModule
     {
         /* Used it tests to skip dbcontext registration, in order to use in-memory database of EF Core */
@@ -37,6 +42,8 @@ namespace NEWZEALAND.EntityFrameworkCore
         public override void Initialize()
         {
             IocManager.RegisterAssemblyByConvention(typeof(NEWZEALANDEntityFrameworkModule).GetAssembly());
+            DapperExtensions.DapperExtensions.SetMappingAssemblies(new List<Assembly>{ typeof(NEWZEALANDEntityFrameworkModule).GetAssembly() });
+            DapperExtensions.DapperExtensions.SqlDialect = new MySqlDialect();
         }
 
         public override void PostInitialize()

@@ -19,11 +19,11 @@ namespace NEWZEALAND
         /// 月份
         /// </summary>
         [Comment("月份")]
-        public DateTime? MONTH { get; set; }
+        public DateTime? CONSUMEMONTH { get; set; }
         /// <summary>
-        /// 总收入
+        /// 总消费
         /// </summary>
-        [Comment("总收入")]
+        [Comment("总消费")]
         public decimal? CONSUME { get; set; }
         /// <summary>
         /// 用途

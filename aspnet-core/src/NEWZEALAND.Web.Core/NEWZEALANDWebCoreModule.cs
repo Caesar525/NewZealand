@@ -13,6 +13,7 @@ using NEWZEALAND.Authentication.JwtBearer;
 using NEWZEALAND.Configuration;
 using NEWZEALAND.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Abp.Configuration.Startup;
 
 namespace NEWZEALAND
 {
@@ -35,6 +36,7 @@ namespace NEWZEALAND
 
         public override void PreInitialize()
         {
+            Configuration.Modules.AbpWebCommon().SendAllExceptionsToClients = true;
             Configuration.DefaultNameOrConnectionString = _appConfiguration.GetConnectionString(
                 NEWZEALANDConsts.ConnectionStringName
             );
