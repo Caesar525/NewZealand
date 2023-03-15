@@ -23,7 +23,7 @@
                             <Input v-model="consumelist.location" :maxlength="32" :minlength="2"></Input>
                         </FormItem>
                         <FormItem :label="L('happentime')" prop="happentime">
-                            <DatePicker v-model="consumelist.happentime" type="date" format="yyyy-MM-dd" :placeholder="L('SelectDate')" :minlength="2"></DatePicker>
+                            <DatePicker v-model="consumelist.happentime" type="datetime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" :placeholder="L('SelectDate')" :minlength="2"></DatePicker>
                         </FormItem>
                     </TabPane>
                 </Tabs>
@@ -49,7 +49,9 @@
         }
         save(){
             (this.$refs.consumelistForm as any).validate(async (valid:boolean)=>{
-                if(valid){
+                if (valid) {
+                    this.consumelist.consumemonth = new Date(this.consumelist.consumemonth.setDate(this.consumelist.consumemonth.getDate() + 1));
+                    this.consumelist.happentime = new Date(this.consumelist.happentime.setDate(this.consumelist.happentime.getDate() + 1));
                     //if (!this.consume.grantedPermissions){
                     //    this.consume.grantedPermissions=[];
                     //}

@@ -90,7 +90,7 @@ namespace NEWZEALAND.ConsumeStatistic
                 input.MaxResultCount
             });
             var list = await query.ReadAsync<NZ_CONSUMEDto>();
-            var count = list.Count();
+            var count = (await _repository.GetAllListAsync()).Count;
             return new PagedResultDto<NZ_CONSUMEDto>(count, list.ToList());
         }
         #endregion

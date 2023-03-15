@@ -66,14 +66,14 @@ namespace NEWZEALAND.ConsumeStatistic
         [AbpAuthorize]
         public async Task<PagedResultDto<NZ_CONSUMELISTDto>> GetAll(NZ_CreateCONSUMELISTDto input)
         {
-            var sql = $@"select * from NZ_CONSUMELIST order by CONSUMEMONTH asc limit @SkipCount,@MaxResultCount";
+            var sql = $@"select * from NZ_CONSUMELIST order by id desc limit @SkipCount,@MaxResultCount";
             var query = await _dzhDapperRepository.Connection.QueryMultipleAsync(sql, new
             {
                 input.SkipCount,
                 input.MaxResultCount
             });
             var list = await query.ReadAsync<NZ_CONSUMELISTDto>();
-            var count = list.Count();
+            var count = (await _repository.GetAllListAsync()).Count;
             return new PagedResultDto<NZ_CONSUMELISTDto>(count, list.ToList());
         }
         #endregion

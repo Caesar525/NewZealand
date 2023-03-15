@@ -88,13 +88,13 @@
                 data:this.pagerequest
             })
         }
-        get pageSize(){
+        get pageSize() {
             return this.$store.state.consumelist.pageSize;
         }
-        get totalCount(){
+        get totalCount() {
             return this.$store.state.consumelist.totalCount;
         }
-        get currentPage(){
+        get currentPage() {
             return this.$store.state.consumelist.currentPage;
         }
         columns = [{
