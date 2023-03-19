@@ -2,14 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\src",
+    "\\src\\assets",
     "\\src\\components",
-    "\\src\\components\\lockscreen",
-    "\\src\\store",
-    "\\src\\store\\entities",
-    "\\src\\store\\modules",
+    "\\src\\types",
+    "\\src\\types\\iview",
     "\\src\\views",
     "\\src\\views\\setting",
-    "\\src\\views\\setting\\tenant"
+    "\\src\\views\\setting\\consume",
+    "\\src\\views\\setting\\user"
   ],
+  "SelectedNode": "\\src\\lib\\appconst.ts",
   "PreviewInSolutionExplorer": false
 }
