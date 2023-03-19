@@ -2,15 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\assets",
-    "\\src\\components",
-    "\\src\\types",
-    "\\src\\types\\iview",
-    "\\src\\views",
-    "\\src\\views\\setting",
-    "\\src\\views\\setting\\consume",
-    "\\src\\views\\setting\\user"
+    "\\src\\lib"
   ],
-  "SelectedNode": "\\src\\lib\\appconst.ts",
+  "SelectedNode": "\\src\\lib\\url.ts",
   "PreviewInSolutionExplorer": false
 }
