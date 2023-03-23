@@ -63,7 +63,8 @@
         }
         save(){
             (this.$refs.consumeForm as any).validate(async (valid:boolean)=>{
-                if(valid){
+                if (valid) {
+                    this.consume.consumemonth = new Date(this.consume.consumemonth.setDate(this.consume.consumemonth.getDate() + 1));
                     //if (!this.consume.grantedPermissions){
                     //    this.consume.grantedPermissions=[];
                     //}

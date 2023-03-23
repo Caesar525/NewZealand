@@ -118,6 +118,7 @@
     <text name="location" value="地点" />
     <text name="happentime" value="发生时间" />
     <text name="consumemonth" value="月份" />
+    <text name="EditConsume">编辑总预算</text>
   </texts>
 </localizationDictionary>
 
