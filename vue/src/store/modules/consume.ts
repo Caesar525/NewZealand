@@ -32,7 +32,7 @@ class ConsumeModule extends ListModule<ConsumeState, any, Consume>{
             await Ajax.post('/api/services/app/ConsumeStatistic/CreateOrEdit', payload.data);
         },
         async update(context: ActionContext<ConsumeState, any>, payload: any) {
-            await Ajax.put('/api/services/app/ConsumeStatistic/CreateOrEdit', payload.data);
+            await Ajax.post('/api/services/app/ConsumeStatistic/CreateOrEdit', payload.data);
         },
         async delete(context: ActionContext<ConsumeState, any>, payload: any) {
             await Ajax.delete('/api/services/app/ConsumeStatistic/Delete?Id=' + payload.data.id);

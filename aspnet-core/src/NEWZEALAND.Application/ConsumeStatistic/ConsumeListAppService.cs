@@ -154,68 +154,6 @@ namespace NEWZEALAND.ConsumeStatistic
             {
                 return -1;
             }
-            //var nzConsumeSql = "select * from NZ_CONSUME";
-
-
-            //var nzConsumeQuery = _dzhDapperRepositoryConsume.Query(nzConsumeSql);//获取非本月的总消费统计
-            //var nzConsume = nzConsumeQuery.Count()>0?nzConsumeQuery.FirstOrDefault():null;//获取本月的总消费统计
-            ////var nzConsumeListSql = "select * from NZ_CONSUMELIST where Isdeleted=0 and MONTH([MONTH])=MONTH(@MONTH)";
-            ////var nzConsumeListQuery = await _dzhDapperRepository.QueryAsync<NZ_CONSUMELIST>(nzConsumeListSql, new { input.CONSUMEMONTH });//获取非本月的总消费统计
-            //var nzConsumeListAll=new List<NZ_CONSUMELIST>();
-            //if (nzConsumeListQuery.Count()>0)
-            //{
-            //    nzConsumeListAll= nzConsumeListQuery.ToList();
-            //}
-            //var nzConsumeLastMonth = await _repositoryConsume.FirstOrDefaultAsync(x => x.CONSUMEMONTH.Value.Month == input.CONSUMEMONTH.Value.AddMonths(-1).Month);//获取上个月的总消费统计
-            //if (nzConsumeLastMonth == null)
-            //{
-            //    nzConsumeLastMonth = new NZ_CONSUME();
-            //    nzConsumeLastMonth.EXTREMUM = 0;
-            //    nzConsumeLastMonth.TOTALCONSUME = 0;
-            //    nzConsumeLastMonth.INCREMENT = 0;
-            //    nzConsumeLastMonth.LOWEST = 0;
-            //    nzConsumeLastMonth.DISPOSABLEINCOME = 0;
-            //    nzConsumeLastMonth.DISPOSABLEBALANCE = 0;
-            //}
-            //if (nzConsume != null)
-            //{
-            //    //计算本月消费总和
-            //    var allConsume = nzConsumeListAll.Count>0?nzConsumeListAll.Sum(x => x.CONSUME):0m;
-            //    //处理新增
-            //    var entity = ObjectMapper.Map<NZ_CONSUMELIST>(input);
-
-            //    if (AbpSession.TenantId != null)
-            //    {
-            //        entity.TenantId = (int?)AbpSession.TenantId;
-            //    }
-
-            //    var result = await _repository.InsertAsync(entity);
-
-            //    //获取当前添加月份下一个月的数据
-            //    var nzConsumeNextMonth = await _repositoryConsume.FirstOrDefaultAsync(x => x.CONSUMEMONTH.Value.Month == input.CONSUMEMONTH.Value.AddMonths(1).Month);//下个月的数据
-            //    if(nzConsumeNextMonth== null)
-            //    {
-            //        nzConsumeNextMonth=new NZ_CONSUME();
-            //        nzConsumeNextMonth.EXTREMUM = 0;
-            //        nzConsumeNextMonth.TOTALCONSUME = 0;
-            //        nzConsumeNextMonth.INCREMENT = 0;
-            //        nzConsumeNextMonth.LOWEST = 0;
-            //        nzConsumeNextMonth.DISPOSABLEINCOME = 0;
-            //        nzConsumeNextMonth.DISPOSABLEBALANCE = 0;
-            //    }
-            //    //更新统计
-            //    nzConsume.DISPOSABLEINCOME = nzConsume.EXTREMUM + nzConsumeNextMonth.INCREMENT - nzConsumeNextMonth.LOWEST;//计算可支配收入
-            //    nzConsume.EXTREMUM = nzConsumeLastMonth.EXTREMUM + nzConsume.INCREMENT- nzConsumeLastMonth.TOTALCONSUME;//计算当前消费极值
-            //    nzConsume.TOTALCONSUME = allConsume + input.CONSUME;//计算总消费
-            //    nzConsume.DISPOSABLEBALANCE = nzConsume.DISPOSABLEINCOME - nzConsume.TOTALCONSUME;//计算可支配结余
-            //    //更新
-            //    await _repositoryConsume.UpdateAsync(nzConsume);
-            //    return result.Id;
-            //}
-            //else
-            //{
-            //    return -1;
-            //}
             return -1;
             
         }

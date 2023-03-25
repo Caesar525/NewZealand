@@ -19,7 +19,7 @@
         <Input v-model="role.description" :maxlength="1024"></Input>
     </FormItem>-->
                         <FormItem :label="L('consumemonth')" prop="consumemonth">
-                            <DatePicker v-model="consume.consumemonth" type="date" format="yyyy-MM-dd" :placeholder="L('SelectDate')" :minlength="2"></DatePicker>
+                            <DatePicker v-model="consume.consumemonth" type="datetime" format="yyyy-MM-dd" :placeholder="L('SelectDate')" :minlength="2"></DatePicker>
                         </FormItem>
                         <FormItem :label="L('extremum')" prop="extremum">
                             <Input v-model="consume.extremum" :maxlength="32" :minlength="2"></Input>

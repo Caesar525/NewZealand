@@ -24,7 +24,7 @@
             </div>
         </Card>
         <CreateConsumeList v-model="createModalShow" @save-success="getpage"></CreateConsumeList>
-        <!--<edit-consumelist v-model="editModalShow" @save-success="getpage"></edit-consumelist>-->
+        <EditConsumeList v-model="editModalShow" @save-success="getpage"></EditConsumeList>
     </div>
 </template>
 <script lang="ts">
@@ -33,14 +33,14 @@
     import AbpBase from '@/lib/abpbase'
     import PageRequest from '@/store/entities/page-request'
     import CreateConsumeList from './create-consumelist.vue'
-    //import EditConsumeList from './edit-consumelist.vue'
+    import EditConsumeList from './edit-consumelist.vue'
 
     class PageConsumelistRequest extends PageRequest{
         keyword:string='';
         isActive:boolean=null;
     }
     @Component({
-        components: { CreateConsumeList }
+        components: { CreateConsumeList,EditConsumeList }
     })
     export default class ConsumeList extends AbpBase{
         edit(){

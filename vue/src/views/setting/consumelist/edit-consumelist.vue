@@ -1,26 +1,30 @@
 <template>
     <div>
-        <Modal :title="L('EditRole')"
+        <Modal :title="L('EditConsumeList')"
                :value="value"
                @on-ok="save"
                @on-visible-change="visibleChange">
-            <Form ref="roleForm" label-position="top" :rules="roleRule" :model="role">
+            <Form ref="consumelistForm" label-position="top" :rules="consumelistRule" :model="consumelist">
                 <Tabs value="detail">
-                    <TabPane :label="L('RoleDetails')" name="detail">
-                        <FormItem :label="L('RoleName')" prop="name">
-                            <Input v-model="role.name" :maxlength="32" :minlength="2"></Input>
+                    <TabPane :label="L('ConsumeDetails')" name="detail">
+                        <FormItem :label="L('consumemonth')" prop="consumemonth">
+                            <DatePicker v-model="consumelist.consumemonth" type="datetime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" :placeholder="L('SelectDate')" :minlength="2"></DatePicker>
                         </FormItem>
-                        <FormItem :label="L('DisplayName')" prop="displayName">
-                            <Input v-model="role.displayName" :maxlength="32" :minlength="2"></Input>
+                        <FormItem :label="L('consume')" prop="consume">
+                            <Input v-model="consumelist.consume" :maxlength="32" :minlength="2"></Input>
                         </FormItem>
-                        <FormItem :label="L('Description')" prop="description">
-                            <Input v-model="role.description" :maxlength="1024"></Input>
+                        <FormItem :label="L('usage')" prop="usage">
+                            <Input v-model="consumelist.usage" :maxlength="32" :minlength="2"></Input>
                         </FormItem>
-                    </TabPane>
-                    <TabPane :label="L('RolePermission')" name="permission">
-                        <CheckboxGroup v-model="role.grantedPermissions">
-                            <Checkbox :label="permission.name" v-for="permission in permissions" :key="permission.name"><span>{{permission.displayName}}</span></Checkbox>
-                        </CheckboxGroup>
+                        <FormItem :label="L('remark')" prop="remark">
+                            <Input v-model="consumelist.remark" :maxlength="32" :minlength="2"></Input>
+                        </FormItem>
+                        <FormItem :label="L('location')" prop="location">
+                            <Input v-model="consumelist.location" :maxlength="32" :minlength="2"></Input>
+                        </FormItem>
+                        <FormItem :label="L('happentime')" prop="happentime">
+                            <DatePicker v-model="consumelist.happentime" type="datetime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" :placeholder="L('SelectDate')" :minlength="2"></DatePicker>
+                        </FormItem>
                     </TabPane>
                 </Tabs>
             </Form>
@@ -35,41 +39,47 @@
     import { Component, Vue,Inject, Prop,Watch } from 'vue-property-decorator';
     import Util from '../../../lib/util'
     import AbpBase from '../../../lib/abpbase'
-    import Role from '@/store/entities/role';
+    import ConsumeList from '@/store/entities/ConsumeList';
     @Component
-    export default class EditConsumeList extends AbpBase{
+    export default class CreateConsumeList extends AbpBase{
         @Prop({type:Boolean,default:false}) value:boolean;
-        role:Role=new Role();
+        consumelist: ConsumeList = new ConsumeList();
         get permissions(){
             return this.$store.state.role.permissions
         }
         save(){
-            (this.$refs.roleForm as any).validate(async (valid:boolean)=>{
-                if(valid){
+            (this.$refs.consumelistForm as any).validate(async (valid:boolean)=>{
+                if (valid) {
+                    this.consumelist.consumemonth = new Date(this.consumelist.consumemonth.setDate(this.consumelist.consumemonth.getDate() + 1));
+                    this.consumelist.happentime = new Date(this.consumelist.happentime.setDate(this.consumelist.happentime.getDate() + 1));
                     await this.$store.dispatch({
-                        type:'role/update',
-                        data:this.role
+                        type:'consumelist/update',
+                        data: this.consumelist
                     });
-                    (this.$refs.roleForm as any).resetFields();
+                    (this.$refs.consumelistForm as any).resetFields();
                     this.$emit('save-success');
                     this.$emit('input',false);
                 }
             })
         }
         cancel(){
-            (this.$refs.roleForm as any).resetFields();
+            (this.$refs.consumelistForm as any).resetFields();
             this.$emit('input',false);
         }
         visibleChange(value:boolean){
             if(!value){
                 this.$emit('input',value);
             }else{
-                this.role=Util.extend(true,{},this.$store.state.role.editRole);
+                this.consumelist = Util.extend(true, {}, this.$store.state.consumelist.editConsumeList);
             }
         }
-        roleRule={
-            name:[{required: true,message:this.L('FieldIsRequired',undefined,this.L('RoleName')),trigger: 'blur'}],
-            displayName:[{required:true,message:this.L('FieldIsRequired',undefined,this.L('DisplayName')),trigger: 'blur'}]
+        consumelistRule = {
+            consumemonth: [],
+            consume: [],
+            usage: [],
+            remark: [],
+            location: [],
+            happentime: []
         }
     }
 </script>
