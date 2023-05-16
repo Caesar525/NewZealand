@@ -9,6 +9,7 @@ using NEWZEALAND.Dapper;
 using NEWZEALAND.Interface;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -163,7 +164,83 @@ namespace NEWZEALAND.ConsumeStatistic
         {
             var detail = await _repository.FirstOrDefaultAsync((long)input.Id);
             ObjectMapper.Map(input, detail);
+            //更新计算内容
+            var result=await this.ReCalculation(DateTime.Now);
+            if(!result)
+            {
+                return -1;
+            }
             return input.Id;
+        }
+        #endregion
+
+        #region 重新计算
+        /// <summary>
+        /// 重新计算
+        /// </summary>
+        /// <param name="month">月份</param>
+        /// <returns></returns>
+        [AbpAuthorize]
+        public async Task<bool> ReCalculation(DateTime month)
+        {
+            //获取上个月总消费统计
+            var nzConsumeLastMonthList = await _repositoryConsume.GetAllListAsync(x => x.IsDeleted == false && (((DateTime)x.CONSUMEMONTH).Year * 12 + ((DateTime)x.CONSUMEMONTH).Month) == ((month.Year * 12 + month.Month)) - 1);//获取上月的总消费统计
+            //获取本月明细
+            var nzConsumeThisMonthList = await _repositoryConsume.GetAllListAsync(x => x.IsDeleted == false && (((DateTime)x.CONSUMEMONTH).Year * 12 + ((DateTime)x.CONSUMEMONTH).Month) == (month.Year * 12 + month.Month));//获取本月的总消费统计
+            //计算本月总额
+            var nzConsumeList = await _repository.GetAllListAsync(x => x.IsDeleted == false && (((DateTime)x.CONSUMEMONTH).Year * 12 + ((DateTime)x.CONSUMEMONTH).Month) == (month.Year * 12 + month.Month));
+            //获取当前添加月份下一个月的数据
+            var nzConsumeNextMonth = await _repositoryConsume.FirstOrDefaultAsync(x => x.CONSUMEMONTH.Value.Month == month.AddMonths(1).Month);//下个月的数据
+            //校验存在当前月份明细
+            if (nzConsumeThisMonthList.Count <= 0)
+            {
+                return false;
+            }
+            var nzConsumeLastMonth = new NZ_CONSUME();
+            if (nzConsumeLastMonthList.Count <= 0)
+            {
+                nzConsumeLastMonth = new NZ_CONSUME();
+                nzConsumeLastMonth.EXTREMUM = 0;
+                nzConsumeLastMonth.TOTALCONSUME = 0;
+                nzConsumeLastMonth.INCREMENT = 0;
+                nzConsumeLastMonth.LOWEST = 0;
+                nzConsumeLastMonth.DISPOSABLEINCOME = 0;
+                nzConsumeLastMonth.DISPOSABLEBALANCE = 0;
+            }
+            else
+            {
+                nzConsumeLastMonth = nzConsumeLastMonthList.FirstOrDefault();
+            }
+            var nzConsumeThisMonth = nzConsumeThisMonthList.Count > 0 ? nzConsumeThisMonthList.FirstOrDefault() : null;//获取本月的总消费统计
+            if (nzConsumeThisMonth != null)
+            {
+                //计算本月消费总和
+                var allConsume = nzConsumeList.Count > 0 ? nzConsumeList.Sum(x => x.CONSUME) : 0m;
+                //处理新增
+                //var entity = ObjectMapper.Map<NZ_CONSUMELIST>(input);
+                //var result = await _repository.InsertAsync(entity);
+                //更新统计
+                nzConsumeThisMonth.DISPOSABLEINCOME = nzConsumeThisMonth.EXTREMUM + nzConsumeNextMonth.INCREMENT - nzConsumeNextMonth.LOWEST;//计算可支配收入：极值+增值-最低保障
+                nzConsumeThisMonth.EXTREMUM = nzConsumeLastMonth.EXTREMUM + nzConsumeThisMonth.INCREMENT - nzConsumeLastMonth.TOTALCONSUME + nzConsumeLastMonth.DISPOSABLEBALANCE;//计算当前消费极值
+                //更新总消费
+                //nzConsumeThisMonth.TOTALCONSUME = nzConsumeThisMonth.TOTALCONSUME + input.CONSUME;//计算总消费
+                var totalConsume = 0m;
+                foreach (var item in nzConsumeList)
+                {
+                    totalConsume += item.CONSUME==null?0m:item.CONSUME.Value;
+                    nzConsumeThisMonth.TOTALCONSUME = totalConsume;
+                }
+                nzConsumeThisMonth.DISPOSABLEBALANCE = nzConsumeThisMonth.DISPOSABLEINCOME - nzConsumeThisMonth.TOTALCONSUME;//计算可支配结余
+                //更新
+                await _repositoryConsume.UpdateAsync(nzConsumeThisMonth);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            return true;
         }
         #endregion
         [UnitOfWork(false)]
