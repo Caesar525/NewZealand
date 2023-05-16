@@ -2,8 +2,8 @@
   "ExpandedNodes": [
     "",
     "\\src",
+    "\\src\\lib",
     "\\src\\store",
-    "\\src\\store\\entities",
     "\\src\\store\\modules",
     "\\src\\views",
     "\\src\\views\\setting",
@@ -11,6 +11,6 @@
     "\\src\\views\\setting\\consumelist",
     "\\src\\views\\setting\\role"
   ],
-  "SelectedNode": "\\src\\views\\setting\\consume\\edit-consume.vue",
+  "SelectedNode": "\\src\\lib\\url.ts",
   "PreviewInSolutionExplorer": false
 }

@@ -23,7 +23,7 @@
                             <Input v-model="consumelist.location" :maxlength="32" :minlength="2"></Input>
                         </FormItem>
                         <FormItem :label="L('happentime')" prop="happentime">
-                            <DatePicker v-model="consumelist.happentime" type="datetime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" :placeholder="L('SelectDate')" :minlength="2"></DatePicker>
+                            <DatePicker v-model="consumelist.happentime" type="datetime" value-format="yyyy-MM-dd" format="yyyy-MM-dd" :placeholder="L('SelectDate')" :minlength="2" :transfer="true"></DatePicker>
                         </FormItem>
                     </TabPane>
                 </Tabs>
