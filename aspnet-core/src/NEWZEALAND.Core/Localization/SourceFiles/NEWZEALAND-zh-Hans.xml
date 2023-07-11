@@ -119,6 +119,8 @@
     <text name="happentime" value="发生时间" />
     <text name="consumemonth" value="月份" />
     <text name="EditConsume">编辑总预算</text>
+
+    <text name="Import">导入</text>
   </texts>
 </localizationDictionary>
 
