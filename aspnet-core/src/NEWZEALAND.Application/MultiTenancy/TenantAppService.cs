@@ -6,7 +6,7 @@ using Abp.Authorization;
 using Abp.Domain.Repositories;
 using Abp.Extensions;
 using Abp.IdentityFramework;
-using Abp.Linq.Extensions;
+//using Abp.Linq.Extensions;
 using Abp.MultiTenancy;
 using Abp.Runtime.Security;
 using NEWZEALAND.Authorization;

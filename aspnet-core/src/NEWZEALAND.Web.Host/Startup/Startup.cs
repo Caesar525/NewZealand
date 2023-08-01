@@ -10,7 +10,7 @@ using Castle.Facilities.Logging;
 using Abp.AspNetCore;
 using Abp.AspNetCore.Mvc.Antiforgery;
 using Abp.Castle.Logging.Log4Net;
-using Abp.Extensions;
+//using Abp.Extensions;
 using NEWZEALAND.Configuration;
 using NEWZEALAND.Identity;
 using Abp.AspNetCore.SignalR.Hubs;

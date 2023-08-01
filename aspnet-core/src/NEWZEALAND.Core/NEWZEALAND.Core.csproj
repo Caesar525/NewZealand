@@ -23,4 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\NEWZEALAND.Dapper\NEWZEALAND.Dapper.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Magicodes\" />
+  </ItemGroup>
 </Project>
