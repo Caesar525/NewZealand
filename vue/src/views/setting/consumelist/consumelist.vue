@@ -14,7 +14,8 @@
                     <Row>
                         <Button @click="create" icon="android-add" type="primary" size="large">{{L('Add')}}</Button>
                         <Button icon="ios-search" type="primary" size="large" @click="getpage" class="toolbar-btn">{{L('Find')}}</Button>
-                        <Button icon="" type="primary" size="large" @click="getpage" class="toolbar-btn">{{L('Import')}}</Button>
+                        <Button icon="" type="primary" size="large" @click="handleExport" class="toolbar-btn">{{L('Import')}}</Button>
+                        <!--<el-button class="filter-item" size="mini" type="success" icon="el-icon-download" @click="handleExport()">导出</el-button>-->
                     </Row>
                 </Form>
                 <div class="margin-top-10">
@@ -87,6 +88,12 @@
             await this.$store.dispatch({
                 type:'consumelist/getAll',
                 data:this.pagerequest
+            })
+        }
+        async handleExport() {
+            //导入方法
+            await this.$store.dispatch({
+                type: 'consumelist/getAll'
             })
         }
         get pageSize() {
