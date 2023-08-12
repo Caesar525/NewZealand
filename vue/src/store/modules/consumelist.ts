@@ -41,6 +41,9 @@ class ConsumeListModule extends ListModule<ConsumeListState, any, ConsumeList>{
             let reponse = await Ajax.get('/api/services/app/ConsumeList/Get?Id=' + payload.id);
             return reponse.data.result as ConsumeList;
         },
+        async export(context: ActionContext<ConsumeListState, any>, payload: any) {
+
+        }
         //async getAllPermissions(context: ActionContext<ConsumeState, any>) {
         //    let reponse = await Ajax.get('/api/services/app/ConsumeStatistic/getAllPermissions');
         //    context.state.permissions = reponse.data.result.items;

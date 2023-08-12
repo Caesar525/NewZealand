@@ -2,15 +2,15 @@
   "ExpandedNodes": [
     "",
     "\\src",
+    "\\src\\router",
     "\\src\\store",
     "\\src\\store\\entities",
+    "\\src\\store\\modules",
     "\\src\\views",
-    "\\src\\views\\home",
     "\\src\\views\\setting",
-    "\\src\\views\\setting\\consume",
     "\\src\\views\\setting\\consumelist",
     "\\src\\views\\setting\\role"
   ],
-  "SelectedNode": "\\src\\views\\main.vue",
+  "SelectedNode": "\\src\\views\\setting\\consumelist\\edit-consumelist.vue",
   "PreviewInSolutionExplorer": false
 }
