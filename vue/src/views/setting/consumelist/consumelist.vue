@@ -27,6 +27,7 @@
         </Card>
         <CreateConsumeList v-model="createModalShow" @save-success="getpage"></CreateConsumeList>
         <EditConsumeList v-model="editModalShow" @save-success="getpage"></EditConsumeList>
+        <UploadConsumeList v-model="uploadModalShow" @save-success="getpage"></UploadConsumeList>
     </div>
 </template>
 <script lang="ts">
@@ -36,13 +37,14 @@
     import PageRequest from '@/store/entities/page-request'
     import CreateConsumeList from './create-consumelist.vue'
     import EditConsumeList from './edit-consumelist.vue'
+    import UploadConsumeList from './upload-consumelist.vue'
 
     class PageConsumelistRequest extends PageRequest{
         keyword:string='';
         isActive:boolean=null;
     }
     @Component({
-        components: { CreateConsumeList,EditConsumeList }
+        components: { CreateConsumeList,EditConsumeList,UploadConsumeList }
     })
     export default class ConsumeList extends AbpBase{
         edit(){
@@ -53,6 +55,7 @@
 
         createModalShow:boolean=false;
         editModalShow:boolean=false;
+        uploadModalShow:boolean=false;
         get list(){
             //return this.$store.state.consume.list;
             return this.$store.state.consumelist.list;
@@ -62,6 +65,9 @@
         }
         create(){
             this.createModalShow=true;
+        }
+        handleExport(){
+            this.uploadModalShow=true;
         }
         isActiveChange(val:string){
             if(val==='Actived'){
@@ -88,12 +94,6 @@
             await this.$store.dispatch({
                 type:'consumelist/getAll',
                 data:this.pagerequest
-            })
-        }
-        async handleExport() {
-            //导入方法
-            await this.$store.dispatch({
-                type: 'consumelist/getAll'
             })
         }
         get pageSize() {
