@@ -41,7 +41,7 @@
     import AbpBase from '../../../lib/abpbase'
     import ConsumeList from '@/store/entities/ConsumeList';
     @Component
-    export default class CreateConsumeList extends AbpBase{
+    export default class EditConsumeList extends AbpBase{
         @Prop({type:Boolean,default:false}) value:boolean;
         consumelist: ConsumeList = new ConsumeList();
         get permissions(){

@@ -13,7 +13,8 @@
                       >
                         <Button icon="android-add" type="primary">{{btnTitle}}</Button>
                       </Upload>
-                    </div>
+                  </div>
+                  <!-- 上传控件 -->
                 </TabPane>
               </Tabs>
         </Modal>
@@ -37,7 +38,7 @@
         /**按钮显示内容 */
         @Prop({ type: String, default: "导入" }) btnTitle: String;
 
-        //@Prop({type:Boolean,default:false}) value:boolean;
+        // @Prop({type:Boolean,default:false}) value:boolean;
         // consumelist: ConsumeList = new ConsumeList();
         // get permissions(){
         //     return this.$store.state.role.permissions
