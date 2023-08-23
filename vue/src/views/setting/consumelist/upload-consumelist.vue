@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Modal :title="L('EditConsumeList')" >
+        <Modal :title="L('EditConsumeList')" :value="value" @on-visible-change="visibleChange">
             <Tabs value="detial">
                 <TabPane :label="L('ConsumeDetails')" name="detail">
                   <!-- 上传控件 -->
@@ -37,6 +37,13 @@
         }
         /**按钮显示内容 */
         @Prop({ type: String, default: "导入" }) btnTitle: String;
+        @Prop({type:Boolean,default:false}) value:boolean;
+
+        visibleChange(value:boolean){
+            if(!value){
+                this.$emit('input',value);
+            }
+        }
 
         // @Prop({type:Boolean,default:false}) value:boolean;
         // consumelist: ConsumeList = new ConsumeList();
