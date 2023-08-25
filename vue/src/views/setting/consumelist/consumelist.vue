@@ -5,7 +5,7 @@
                 <Form ref="queryForm" :label-width="100" label-position="left" inline>
                     <Row :gutter="16">
                         <Col span="8">
-                        <!--�˴���Ҫ�༭��Ϊ���ֶ�����-->
+                        <!--导入功能-->
                         <FormItem :label="L('Keyword')+':'" style="width:100%">
                             <Input v-model="pagerequest.keyword" :placeholder="L('TenancyName')+'/'+L('Name')"></Input>
                         </FormItem>
@@ -15,7 +15,7 @@
                         <Button @click="create" icon="android-add" type="primary" size="large">{{L('Add')}}</Button>
                         <Button icon="ios-search" type="primary" size="large" @click="getpage" class="toolbar-btn">{{L('Find')}}</Button>
                         <Button icon="" type="primary" size="large" @click="handleExport" class="toolbar-btn">{{L('Import')}}</Button>
-                        <!--<el-button class="filter-item" size="mini" type="success" icon="el-icon-download" @click="handleExport()">����</el-button>-->
+                        <!--<el-button class="filter-item" size="mini" type="success" icon="el-icon-download" @click="handleExport()">导入</el-button>-->
                     </Row>
                 </Form>
                 <div class="margin-top-10">

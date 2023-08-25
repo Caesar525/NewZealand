@@ -4,12 +4,14 @@ using Abp.Domain.Entities;
 using Abp.Domain.Repositories;
 using Abp.Domain.Uow;
 using Dapper;
+using Microsoft.AspNetCore.Http;
 using NEWZEALAND.ConsumeStatistic.Dto;
 using NEWZEALAND.Dapper;
 using NEWZEALAND.Interface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -25,6 +27,8 @@ namespace NEWZEALAND.ConsumeStatistic
         private readonly IDzhDapperRepository<NZ_CONSUMELIST, long> _dzhDapperRepository;
         private readonly IDzhDapperRepository<NZ_CONSUME, long> _dzhDapperRepositoryConsume;
         private readonly IUnitOfWorkManager _unitOfWorkManager;
+
+        private const string FileDir = "/File/ExcelTemp";
         #endregion
         #region 构造函数
         public ConsumeListAppService(
@@ -243,6 +247,62 @@ namespace NEWZEALAND.ConsumeStatistic
             return true;
         }
         #endregion
+
+
+        #region 上传文件处理
+        /// <summary>
+        /// 上传文件处理
+        /// </summary>
+        /// <param name="file">上传文件流</param>
+        /// <returns></returns>
+        private async Task<string> UploadExcelFile(IFormFile file)
+        {
+
+            string url = await WriteFile(file, FileDir);
+            string fillpath=Path.GetFullPath($"{Environment.CurrentDirectory}" + url);
+            return Path.GetFileName(url);
+        }
+        #endregion
+
+        #region 写入文件
+        /// <summary>
+        /// 写入文件
+        /// </summary>
+        /// <param name="avatar"></param>
+        /// <param name="reDir"></param>
+        /// <returns></returns>
+        public async Task<string> WriteFile(IFormFile avatar, string reDir)
+        {
+            string reName = Guid.NewGuid() + Path.GetExtension(avatar.FileName);
+            string dir = GetDirPath(reDir);
+            string path = $"{dir}\\{reName}";
+            Stream stream = avatar.OpenReadStream();
+            using (FileStream fileStream = new FileStream(path, FileMode.Create))
+            {
+                await avatar.CopyToAsync(fileStream);
+            }
+            return $"{reDir}/{reName}";
+        }
+        #endregion
+
+        #region 获取全部路径
+        /// <summary>
+        /// 获取全部路径
+        /// </summary>
+        /// <param name="reDir"></param>
+        /// <returns></returns>
+        public string GetDirPath(string reDir)
+        {
+            string dir = $"{Environment.CurrentDirectory}/{reDir}";
+            if (!Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+            return Path.GetFullPath(dir);
+        }
+        #endregion
+
+        #region 单元测试
         [UnitOfWork(false)]
         [AbpAuthorize]
         public async Task<bool> TestQuery()
@@ -254,5 +314,6 @@ namespace NEWZEALAND.ConsumeStatistic
             var nzConsumeListQuery =await _dzhDapperRepository.QueryAsync<NZ_CONSUMELIST>(nzConsumeListSql);
             return false;
         }
+        #endregion
     }
 }

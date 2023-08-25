@@ -9,7 +9,7 @@
                         :action="uploadURL"
                         :on-success="onSuccess"
                         accept=".xls, .xlsx"
-                        :show-upload-list="false"
+                        :show-upload-list="true"
                       >
                         <Button icon="android-add" type="primary">{{btnTitle}}</Button>
                       </Upload>
