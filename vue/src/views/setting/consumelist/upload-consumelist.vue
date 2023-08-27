@@ -17,6 +17,10 @@
                   <!-- 上传控件 -->
                 </TabPane>
               </Tabs>
+              <div slot="footer">
+                <Button @click="cancel">{{L('Cancel')}}</Button>
+                <Button @click="save" type="primary">{{L('OK')}}</Button>
+            </div>
         </Modal>
     </div>
 </template>
@@ -30,7 +34,7 @@
     @Component
     export default class UploadConsumeList extends AbpBase{
         uploadURL =
-        appconst.remoteServiceBaseUrl + "/api/services/app/Excel/UploadExcelFile";
+        appconst.remoteServiceBaseUrl + "/api/services/app/UploadExcelFile/UploadFile";
         async onSuccess(response, file, fileList) {
             //上传完成触发事件uploadCompleted
             this.$emit("uploadCompleted", response.result);
@@ -50,25 +54,24 @@
         // get permissions(){
         //     return this.$store.state.role.permissions
         // }
-        // save(){
-        //     (this.$refs.consumelistForm as any).validate(async (valid:boolean)=>{
-        //         if (valid) {
-        //             this.consumelist.consumemonth = new Date(this.consumelist.consumemonth.setDate(this.consumelist.consumemonth.getDate() + 1));
-        //             this.consumelist.happentime = new Date(this.consumelist.happentime.setDate(this.consumelist.happentime.getDate() + 1));
-        //             await this.$store.dispatch({
-        //                 type:'consumelist/update',
-        //                 data: this.consumelist
-        //             });
-        //             (this.$refs.consumelistForm as any).resetFields();
-        //             this.$emit('save-success');
-        //             this.$emit('input',false);
-        //         }
-        //     })
-        // }
-        // cancel(){
-        //     (this.$refs.consumelistForm as any).resetFields();
-        //     this.$emit('input',false);
-        // }
+        save(){
+            console.log("asdasjodasuihfas");
+            // (this.$refs.consumelistForm as any).validate(async (valid:boolean)=>{
+                
+            //     if (valid) {
+            //         alert("1113123");
+            //     }
+            // })
+
+            alert("111312311111111111111111111111111");
+            this.$emit('save-success');
+            this.$emit('input',false);
+        }
+        cancel(){
+            alert("111312311111111111111111111111111");
+            // (this.$refs.consumelistForm as any).resetFields();
+            this.$emit('input',false);
+        }
         // visibleChange(value:boolean){
         //     if(!value){
         //         this.$emit('input',value);
