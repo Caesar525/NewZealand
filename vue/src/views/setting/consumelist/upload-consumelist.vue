@@ -33,10 +33,16 @@
 
     @Component
     export default class UploadConsumeList extends AbpBase{
+        fileNam="";
         uploadURL =
         appconst.remoteServiceBaseUrl + "/api/services/app/UploadExcelFile/UploadFile";
         async onSuccess(response, file, fileList) {
             //上传完成触发事件uploadCompleted
+            this.fileNam=response.result;//文件名
+            console.log("126458",this.fileNam);
+            console.log("response",response);
+            console.log("file",file);
+            console.log("fileList",fileList);
             this.$emit("uploadCompleted", response.result);
         }
         /**按钮显示内容 */
@@ -56,14 +62,11 @@
         // }
         save(){
             console.log("asdasjodasuihfas");
-            // (this.$refs.consumelistForm as any).validate(async (valid:boolean)=>{
-                
-            //     if (valid) {
-            //         alert("1113123");
-            //     }
-            // })
-
-            alert("111312311111111111111111111111111");
+            this.$store.dispatch({
+                type: 'consumelist/update',
+                data: this.fileNam
+            });
+            alert("11131231111188888888");
             this.$emit('save-success');
             this.$emit('input',false);
         }
