@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NEWZEALAND.Dto;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -65,27 +66,14 @@ namespace NEWZEALAND.Excel
         /// <param name="input">导入excel参数</param>
         /// <returns></returns>
         [HttpPost]
-        public async Task ImportExcel(XXXImprotExcelInput input)
+        public async Task ImportExcel(ImprotExcelInput input)
         {
-            //var data = await this.GetData<XXXImportExcelDto>(input.FileName);
+            var data = await this.GetData<ImprotExcelInput>(input.Name);
             //if (!data.Any())
             //{
             //    return;
             //}
             //你的逻辑
-        }
-
-        //XXXImprotExcelInput.cs
-        /// <summary>
-        /// 导入excel
-        /// </summary>
-        public class XXXImprotExcelInput
-        {
-            /// <summary>
-            /// 上传的excel文件名称
-            /// </summary>
-            public string FileName { get; set; }
-            //你的其他参数
         }
         //ExcelAppService.cs
         /// <summary>

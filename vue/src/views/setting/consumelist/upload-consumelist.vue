@@ -33,12 +33,14 @@
 
     @Component
     export default class UploadConsumeList extends AbpBase{
-        fileNam="";
+        fileNam:string="";
+        fileSend:any;
         uploadURL =
         appconst.remoteServiceBaseUrl + "/api/services/app/UploadExcelFile/UploadFile";
         async onSuccess(response, file, fileList) {
             //上传完成触发事件uploadCompleted
             this.fileNam=response.result;//文件名
+            this.fileSend=file;
             console.log("126458",this.fileNam);
             console.log("response",response);
             console.log("file",file);
@@ -62,9 +64,10 @@
         // }
         save(){
             console.log("asdasjodasuihfas");
+            //this.$store.dispatch中的type是指components中的store/modules/consumelist中的actions对象下的export方法
             this.$store.dispatch({
-                type: 'consumelist/update',
-                data: this.fileNam
+                type: 'consumelist/export',
+                data: this.fileSend
             });
             alert("11131231111188888888");
             this.$emit('save-success');
