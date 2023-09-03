@@ -42,7 +42,8 @@ class ConsumeListModule extends ListModule<ConsumeListState, any, ConsumeList>{
             return reponse.data.result as ConsumeList;
         },
         async export(context: ActionContext<ConsumeListState, any>, payload: any) {
-
+            // console.log("dhasoduasghdaiosudhgassiuydghasiydgasyiudagsdiuyasgdaisuy",context);
+            await Ajax.post('/api/services/app/UploadExcelFile/ImportExcel', payload.data);
         }
         //async getAllPermissions(context: ActionContext<ConsumeState, any>) {
         //    let reponse = await Ajax.get('/api/services/app/ConsumeStatistic/getAllPermissions');
