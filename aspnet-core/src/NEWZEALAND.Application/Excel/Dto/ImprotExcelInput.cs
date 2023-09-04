@@ -16,5 +16,13 @@ namespace NEWZEALAND.Dto
         /// 上传的excel文件名称
         /// </summary>
         public string Name { get; set; }
+
+        public ResponsePR Response { get; set; }
     }
+
+    public class ResponsePR
+    {
+        public string Result { get; set; }
+    }
+
 }

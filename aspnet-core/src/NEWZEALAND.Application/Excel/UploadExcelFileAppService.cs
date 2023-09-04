@@ -1,21 +1,25 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Magicodes.ExporterAndImporter.Core;
+using Magicodes.ExporterAndImporter.Excel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using NEWZEALAND.Dto;
+using NEWZEALAND.Excel.Dto;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Volo.Abp;
 
 namespace NEWZEALAND.Excel
 {
     public class UploadExcelFileAppService : NEWZEALANDAppServiceBase
     {
         private const string FileDir = "/File/ExcelTemp";
+        private readonly IImporter _importer=new ExcelImporter();
         public UploadExcelFileAppService()
         {
-
         }
         //ExcelAppService.cs
         /// <summary>
@@ -68,11 +72,11 @@ namespace NEWZEALAND.Excel
         [HttpPost]
         public async Task ImportExcel(ImprotExcelInput input)
         {
-            var data = await this.GetData<ImprotExcelInput>(input.Name);
-            //if (!data.Any())
-            //{
-            //    return;
-            //}
+            var data = await this.GetData<AliPayImprotExcelDto>(input.Response.Result);
+            if (!data.Any())
+            {
+                return;
+            }
             //你的逻辑
         }
         //ExcelAppService.cs
@@ -85,15 +89,15 @@ namespace NEWZEALAND.Excel
         internal async Task<IEnumerable<T>> GetData<T>(string fileName) where T : class, new()
         {
             var fullpath = GetFullPath(fileName);
-            //var result = await importer.Import<T>(fullpath);
-            //if (result.HasError)
-            //{
-            //    var errFile = Path.GetFileNameWithoutExtension(fileName) + "_" + Path.GetExtension(fileName);
-            //    //如果excel文件内容不符合要求（格式错误、必填数据未填、数据类型错误），则弹出错误提示并给出下载链接
-            //    throw new UserFriendlyException("导入错误", GetErrorExcelDownLoadUrl(errFile));
-            //}
-            //return result.Data;
-            return null;
+            var result = await _importer.Import<T>(fullpath);
+            if (result.HasError)
+            {
+                var errFile = Path.GetFileNameWithoutExtension(fileName) + "_" + Path.GetExtension(fileName);
+                //如果excel文件内容不符合要求（格式错误、必填数据未填、数据类型错误），则弹出错误提示并给出下载链接
+                throw new UserFriendlyException("导入错误", GetErrorExcelDownLoadUrl(errFile));
+            }
+            return result.Data;
+            //return null;
         }
         /// <summary>
         /// 下载excel文件
