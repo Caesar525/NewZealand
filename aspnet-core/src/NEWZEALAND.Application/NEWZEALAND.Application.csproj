@@ -12,6 +12,7 @@
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="EFCore.BulkExtensions" Version="7.1.6" />
     <PackageReference Include="Magicodes.IE.Excel.Abp" Version="2.7.4.5" />
   </ItemGroup>
   <ItemGroup>

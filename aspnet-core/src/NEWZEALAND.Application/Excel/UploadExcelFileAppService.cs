@@ -1,9 +1,20 @@
-﻿using Magicodes.ExporterAndImporter.Core;
+﻿using Abp.Application.Services.Dto;
+using Abp.Authorization;
+using Abp.Domain.Entities;
+using Abp.Domain.Repositories;
+using Abp.Domain.Uow;
+using Abp.EntityFrameworkCore.Repositories;
+using EFCore.BulkExtensions;
+using Magicodes.ExporterAndImporter.Core;
 using Magicodes.ExporterAndImporter.Excel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NEWZEALAND.ConsumeStatistic.Dto;
+using NEWZEALAND.ConsumeStatistic.Funcs;
+using NEWZEALAND.Dapper;
 using NEWZEALAND.Dto;
 using NEWZEALAND.Excel.Dto;
+using NEWZEALAND.Interface;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,15 +22,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp;
+using static Dapper.SqlMapper;
 
 namespace NEWZEALAND.Excel
 {
     public class UploadExcelFileAppService : NEWZEALANDAppServiceBase
     {
+        #region 依赖对象
         private const string FileDir = "/File/ExcelTemp";
         private readonly IImporter _importer=new ExcelImporter();
-        public UploadExcelFileAppService()
+
+        private readonly IRepository<NZ_CONSUMELIST, long> _repository;
+
+        private readonly FunService _funcService;
+        #endregion
+        public UploadExcelFileAppService(
+            IRepository<NZ_CONSUMELIST, long> repository,
+            FunService funcService
+            )
         {
+            _repository = repository;
+            _funcService =funcService;
         }
         //ExcelAppService.cs
         /// <summary>
@@ -73,11 +96,68 @@ namespace NEWZEALAND.Excel
         public async Task ImportExcel(ImprotExcelInput input)
         {
             var data = await this.GetData<AliPayImprotExcelDto>(input.Response.Result);
+            var nzConsumeLists = new List<NZ_CONSUMELIST>();
             if (!data.Any())
             {
                 return;
             }
-            //你的逻辑
+
+            //导入分析支付保的数据
+            foreach (var aliPayItem in data.ToList())
+            {
+                DateTime consumeMonth = new DateTime();
+                var nzConsumeList = new NZ_CONSUMELIST();
+                //判断时间是否为日期格式
+                if (DateTime.TryParse(aliPayItem.PayTime, out consumeMonth))
+                {
+                    //可以转换并转换赋值
+                    nzConsumeList.CONSUMEMONTH=consumeMonth;
+                    //判断收支赋予正值或负值
+                    if(aliPayItem.PayAndReceive== "收入")
+                    {
+                        //记录负数
+                        nzConsumeList.CONSUME = aliPayItem.PayMoney * -1;
+                    }
+                    else if(aliPayItem.PayAndReceive== "支出")
+                    {
+                        nzConsumeList.CONSUME=aliPayItem.PayMoney;
+                    }
+                    else
+                    {
+                        //不计收支
+                    }
+                    //用途
+                    nzConsumeList.USAGE = aliPayItem.PayDeclare;
+                    //备注
+                    //交易分类+交易对方+对方账号+收/付款方式+交易订单号+备注
+                    nzConsumeList.REMARK = aliPayItem.PayType + " " + aliPayItem.PayOpposite + " "
+                        + aliPayItem.PayOppositeAccount + " " + aliPayItem.PayWay + " " + aliPayItem.PayStatus + " "
+                        + aliPayItem.PayOrderNumber + " " + aliPayItem.PayVendor + " " + aliPayItem.PayRemark;
+                    //交易地点 空
+                    nzConsumeList.LOCATION = "";
+                    //生效时间
+                    nzConsumeList.HAPPENTIME = consumeMonth;
+                    //租户
+                    if (AbpSession.TenantId != null)
+                    {
+                        nzConsumeList.TenantId = (int?)AbpSession.TenantId;
+                    }
+                }
+                else
+                {
+                    throw new UserFriendlyException("交易时间无法转换成日期格式"+ aliPayItem.PayOrderNumber);
+                }
+                nzConsumeLists.Add(nzConsumeList);
+            }
+            if (nzConsumeLists.Count > 0)
+            {
+                await _repository.GetDbContext().BulkInsertAsync<NZ_CONSUMELIST>(nzConsumeLists);
+                if (nzConsumeLists.FirstOrDefault() != null)
+                {
+                    var result =await _funcService.ReCalculation((DateTime)nzConsumeLists.FirstOrDefault().CONSUMEMONTH);
+                }
+                
+            }
         }
         //ExcelAppService.cs
         /// <summary>
@@ -144,6 +224,17 @@ namespace NEWZEALAND.Excel
             //var req = httpContextAccessor.HttpContext.Request;
             //return $"{req.Scheme}://{req.Host}";
             return "";
+        }
+
+        /// <summary>
+        /// 单元测试
+        /// </summary>
+        /// <returns></returns>
+        [AbpAuthorize]
+        public async Task<bool> TestNewQuery()
+        {
+            var result =await _funcService.ReCalculation(new DateTime(2023,07,01));
+            return false;
         }
     }
 }
