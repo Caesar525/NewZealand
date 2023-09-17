@@ -69,7 +69,8 @@
                 type: 'consumelist/export',
                 data: this.fileSend
             });
-            alert("11131231111188888888");
+            // alert("11131231111188888888");
+            this.$Message.success("上传成功");
             this.$emit('save-success');
             this.$emit('input',false);
         }
