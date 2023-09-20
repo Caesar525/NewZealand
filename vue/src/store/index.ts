@@ -9,6 +9,7 @@ import role from './modules/role'
 import tenant from './modules/tenant'
 import consume from './modules/consume';
 import consumelist from './modules/consumelist';
+import budget from './modules/budget';
 const store = new Vuex.Store({
     state: {
         //
@@ -27,7 +28,8 @@ const store = new Vuex.Store({
         role,
         tenant,
         consume,
-        consumelist
+        consumelist,
+        budget
     }
 });
 

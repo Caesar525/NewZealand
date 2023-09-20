@@ -55,7 +55,8 @@ export const appRouters: Array<Router> = [{
         { path: 'role', permission: 'Pages.Roles', meta: { title: 'Roles' }, name: 'role', component: () => import('../views/setting/role/role.vue') },
         { path: 'tenant', permission: 'Pages.Tenants', meta: { title: 'Tenants' }, name: 'tenant', component: () => import('../views/setting/tenant/tenant.vue') },
         { path: 'consume', permission: 'Pages.Consume', meta: { title: 'Consume' }, name: 'consume', component: () => import('../views/setting/consume/consume.vue') },
-        { path: 'consumelist', permission: 'Pages.ConsumeList', meta: { title: 'ConsumeList' }, name: 'consumelist', component: () => import('../views/setting/consumelist/consumelist.vue') }
+        { path: 'consumelist', permission: 'Pages.ConsumeList', meta: { title: 'ConsumeList' }, name: 'consumelist', component: () => import('../views/setting/consumelist/consumelist.vue') },
+        { path: 'budget', permission: 'Pages.Budget', meta: { title: 'Budget' }, name: 'budget', component: () => import('../views/setting/budget/budget.vue') },
     ]
 }]
 export const routers = [
