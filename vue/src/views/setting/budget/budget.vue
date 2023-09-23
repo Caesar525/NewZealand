@@ -31,24 +31,24 @@
     import Util from '@/lib/util'
     import AbpBase from '@/lib/abpbase'
     import PageRequest from '@/store/entities/page-request'
-    import CreateConsume from './create-consume.vue'
-    import EditConsume from './edit-consume.vue'
+    import CreateBudget from './create-budget.vue'
+    import EditBudget from './edit-budget.vue'
     
-    class PageConsumeRequest extends PageRequest{
+    export class PageBudgetRequest extends PageRequest{
         keyword:string='';
         isActive:boolean=null;
     }
     
     @Component({
-        components:{CreateConsume,EditConsume}
+        components:{CreateBudget,EditBudget}
     })
-    export default class Consume extends AbpBase{
+    export default class Budget extends AbpBase{
         edit(){
             this.editModalShow=true;
         }
        
-        pagerequest: PageConsumeRequest = new PageConsumeRequest();
-        
+        pagerequest: PageBudgetRequest = new PageBudgetRequest();
+
         createModalShow:boolean=false;
         editModalShow:boolean=false;
         get list(){
@@ -71,11 +71,11 @@
             }
         }
         pageChange(page:number){
-            this.$store.commit('consume/setCurrentPage',page);
+            this.$store.commit('budget/setCurrentPage',page);
             this.getpage();
         }
         pagesizeChange(pagesize:number){
-            this.$store.commit('consume/setPageSize',pagesize);
+            this.$store.commit('budget/setPageSize',pagesize);
             this.getpage();
         }
         async getpage(){
@@ -84,18 +84,18 @@
             this.pagerequest.skipCount = (this.currentPage - 1) * this.pageSize;
             
             await this.$store.dispatch({
-                type:'consume/getAll',
+                type:'budget/getAll',
                 data:this.pagerequest
             })
         }
         get pageSize(){
-            return this.$store.state.consume.pageSize;
+            return this.$store.state.budget.pageSize;
         }
         get totalCount(){
-            return this.$store.state.consume.totalCount;
+            return this.$store.state.budget.totalCount;
         }
         get currentPage(){
-            return this.$store.state.consume.currentPage;
+            return this.$store.state.budget.currentPage;
         }
         columns = [{
             title: this.L('consumemonth'),
