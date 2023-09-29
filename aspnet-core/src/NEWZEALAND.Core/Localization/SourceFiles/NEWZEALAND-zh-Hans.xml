@@ -121,6 +121,7 @@
     <text name="EditConsume">编辑总预算</text>
 
     <text name="Import">导入</text>
+	<text name="Budget">预算</text>
   </texts>
 </localizationDictionary>
 

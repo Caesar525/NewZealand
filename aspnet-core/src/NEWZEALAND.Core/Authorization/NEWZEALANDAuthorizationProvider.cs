@@ -15,6 +15,7 @@ namespace NEWZEALAND.Authorization
             //新增
             context.CreatePermission(PermissionNames.Pages_Consume, L("Consume"));
             context.CreatePermission(PermissionNames.Pages_ConsumeList, L("ConsumeList"));
+            context.CreatePermission(PermissionNames.Pages_Budget, L("Budget"));
         }
 
         private static ILocalizableString L(string name)

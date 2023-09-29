@@ -14,6 +14,7 @@ namespace NEWZEALAND.BudgetStatistic
     [AbpAuthorize]
     public class BudgetAppService: NEWZEALANDAppServiceBase, INEWZEALANDAppService<NZ_BUDGETDto, long, NZ_CreateBudgetDto, NZ_CreateBudgetDto>
     {
+        #region 接口实现方法
         public Task<long> CreateOrEdit(NZ_BUDGETDto input)
         {
             throw new NotImplementedException();
@@ -38,5 +39,9 @@ namespace NEWZEALAND.BudgetStatistic
         {
             throw new NotImplementedException();
         }
+        #endregion
+
+        #region 基本功能
+        #endregion
     }
 }

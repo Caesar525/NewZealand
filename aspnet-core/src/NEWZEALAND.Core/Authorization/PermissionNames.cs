@@ -11,5 +11,6 @@
         //新增
         public const string Pages_Consume = "Pages.Consume";
         public const string Pages_ConsumeList = "Pages.ConsumeList";
+        public const string Pages_Budget = "Pages.Budget";
     }
 }
